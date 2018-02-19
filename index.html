@@ -1,0 +1,45 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>NeighborHoods Maps</title>
+
+  <link rel="stylesheet" type="text/css" href="style/style.css">
+  <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.css" />
+
+</head>
+
+<body>
+
+    <div class="container">
+      <br>
+      <input id="show-listings" type="button" value="Show Listings">
+      <input id="hide-listings" type="button" value="Hide Listings">
+      <br>
+      <button data-bind="click: clickFilter" class="btn btn-info">Markers</button>    
+      <div data-bind="visible: visibleFilter" class="options-box">
+        <div>
+          
+          <input  class="col-xs-12" id="filter-text"  data-bind = "value: filter, click: filter_data"  placeholder="Enter Area">
+          <input class = "btn btn-success" id="filter"  data-bind = "click: filter_data" type="button" value="filter">
+        
+        <div class="list-group" data-bind = "foreach: locations">
+            <a class="list-group-item" data-bind= "text: title, click: $parent.get_info_window"></a>
+        </div>
+
+        </div>
+
+      </div>
+      <div id="map"></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="script/lib/knockout-3.2.0.js"></script>
+    <script src="script/script.js"></script>
+    <script 
+        src="https://maps.googleapis.com/maps/api/js?key=&v=3&callback=init">
+    </script>
+
+</body>
+</html>
