@@ -17,39 +17,17 @@ var map;
         this.marker=data.marker;
         };
 
-        var large = function(marker_large){
-          marker_large.addListener('click', function() {
-            populateInfoWindow(this, largeInfowindow);
-          });
-        };
-
-        var over = function(marker_over){
-          marker_over.addListener('mouseover', function() {
-            this.setIcon(highlightedIcon);
-          });
-        };
-
-        var out = function(marker_out){
-          marker_out.addListener('mouseout', function() {
-            this.setIcon(defaultIcon);
-          });
-        };
-
         var init=function(){
         // Constructor creates a new map - only center and zoom are required.
         map=new google.maps.Map(document.getElementById('map'),{
         center:{lat:40.7413549,lng:-73.9980244},
         zoom:10
 
-        });
+
+            });
 
         largeInfowindow=new google.maps.InfoWindow();
         largeInfowindow=new google.maps.InfoWindow();
-        var defaultIcon=makeMarkerIcon('0091ff');
-
-        // Create a "highlighted location" marker color for when the user
-        // mouses over the marker.
-        var highlightedIcon=makeMarkerIcon('FFFF24');
 
         // The following group uses the location array to create an array of markers on initialize.
         for(var i=0;i<init_data.length;i++){
@@ -62,20 +40,12 @@ var map;
         title:title,
         animation:google.maps.Animation.DROP,
         id:i
-
         }
         );
         // Push the marker to our array of markers.
         markers.push(marker);
         init_data[i].marker=marker;
-        //to add acation on marker
-        // init_data[i].large(marker);
-        // init_data[i].over(marker);
-        // init_data[i].out(marker);
-        marker.addListener('click', function() {
-         populateInfoWindow(this, largeInfowindow);
-         toggle_animation(this);
-        });
+        marker.addListener('click', openInfoWindow);
         document.getElementById('show-listings').addEventListener('click',showListings);
         document.getElementById('hide-listings').addEventListener('click',hideListings);
         }
@@ -83,6 +53,9 @@ var map;
         ko.applyBindings(new ViewModel());
 
         };
+        function openInfoWindow(){
+            populateInfoWindow(this, largeInfowindow);
+        }
 
         function animation(marker){
         marker.setAnimation(google.maps.Animation.BOUNCE);
@@ -91,6 +64,7 @@ var map;
         },700);
 
         }
+
 
 // This function will loop through the markers array and display them all.
         function showListings(){
