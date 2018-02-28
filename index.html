@@ -6,8 +6,11 @@
 
   <title>NeighborHoods Maps</title>
 
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="style/style.css">
   <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 </head>
 
@@ -15,17 +18,22 @@
 
     <div class="container">
       <br>
-      <input id="show-listings" type="button" value="Show Listings">
-      <input id="hide-listings" type="button" value="Hide Listings">
+      <input id="show-listings" type="button" value="Show Listings" data-bind="click: showListings">
+      <input id="hide-listings" type="button" value="Hide Listings" data-bind="click: hideListings">
       <br>
-      <button data-bind="click: clickFilter" class="btn btn-info">Markers</button>    
+      <button data-bind="click: clickFilter" class="btn btn-info">Markers</button>
       <div data-bind="visible: visibleFilter" class="options-box">
         <div>
-          
+
           <input  class="col-xs-12" id="filter-text"  data-bind = "value: filter, click: filter_data"  placeholder="Enter Area">
-          <input class = "btn btn-success" id="filter"  data-bind = "click: filter_data" type="button" value="filter">
-        
-        <div class="list-group" data-bind = "foreach: locations">
+          <input class="btn btn-success" id="filter" data-bind="click: filter_data" type="button" value="filter" style="
+            margin-top:  10px;
+            margin-left: 15px;">
+
+            <div class="list-group" data-bind="foreach: locations" style="
+              margin-top: 20px;
+              margin-left:  20px;">
+
             <a class="list-group-item" data-bind= "text: title, click: $parent.get_info_window"></a>
         </div>
 
@@ -37,8 +45,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="script/lib/knockout-3.2.0.js"></script>
     <script src="script/script.js"></script>
-    <script 
-        src="https://maps.googleapis.com/maps/api/js?key=&v=3&callback=init">
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=&v=3&callback=init" async defer onerror="mapError()">
     </script>
 
 </body>

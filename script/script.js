@@ -2,13 +2,33 @@ var map;
         var markers=[];
         var largeInfowindow;
         var init_data=[
-        {title:'Werwera, Banha, Al Qalyubia Governorate, Egypt',location:{lat:30.489063,lng:31.180079}},
-        {title:'Management Building, Al Hezb Al Watani, Qism Banha, Banha, Al Qalyubia Governorate, Egypt',location:{lat:30.4659929,lng:31.18483070000002}},
-        {title:'El-Moalemin, Qism Banha, Banha, Al Qalyubia Governorate, Egypt',location:{lat:30.444419,lng:31.172204}},
-        {title:'Wabour Al Talg, Qism Banha, Banha, Al Qalyubia Governorate, Egypt',location:{lat:30.440349,lng:31.172204}},
-        {title:'El-Moatasem, Qism Banha, Banha, Al Qalyubia Governorate, Egypt',location:{lat:30.445325,lng:31.16964}},
-        {title:'Wabour Al Talg, Qism Banha, Banha, Al Qalyubia Governorate, Egypt',location:{lat:30.440747,lng:31.171657}},
-        {title:'El-Salam Mosque, AR Ramlah, Banha, Al Qalyubia Governorate, Egypt',location:{lat:30.440249,lng:31.168715}},
+            {
+                title:'cairo tower',
+                location:{lat: 30.045915,lng: 31.224290}
+            },
+            {   title:'Giza pyramid',
+                location:{lat: 29.977296,lng: 31.132496}
+            },
+            {
+                title:'effil tower',
+                location:{lat: 48.858370,lng: 2.294481}
+            },
+            {
+                title: 'Park Ave',
+                location: {lat: 40.7713024, lng: -73.9632393}
+            },
+            {
+                title: 'Chelsea',
+                location: {lat: 40.7444883, lng: -73.9949465}
+            },
+            {
+                title: 'TriBeCa',
+                location: {lat: 40.7195264, lng: -74.0089934}
+            },
+            {
+                title: 'Chinatown',
+                location: {lat: 40.7180628, lng: -73.9961237}
+            },
         ];
 //to get the location
         var Loction=function(data){
@@ -46,8 +66,6 @@ var map;
         markers.push(marker);
         init_data[i].marker=marker;
         marker.addListener('click', openInfoWindow);
-        document.getElementById('show-listings').addEventListener('click',showListings);
-        document.getElementById('hide-listings').addEventListener('click',hideListings);
         }
         showListings();
         ko.applyBindings(new ViewModel());
@@ -55,6 +73,7 @@ var map;
         };
         function openInfoWindow(){
             populateInfoWindow(this, largeInfowindow);
+            animation(this);
         }
 
         function animation(marker){
@@ -88,7 +107,7 @@ var map;
         // Check to make sure the infowindow is not already opened on this marker.
         if(infowindow.marker!=marker){
         infowindow.marker=marker;
-        // get wiki  api url 
+        // get wiki  api url
         var wikiUrl='http://en.wikipedia.org/w/api.php?action=opensearch&search='+marker.title+'&format=json&callback=wikiCallback';
         $.ajax({
         url:wikiUrl,
@@ -140,7 +159,7 @@ var map;
         self.visibleFilter(!self.visibleFilter());
         };
         this.filter_data=function(){
-        // refresh data          
+        // refresh data
         self.locations.removeAll();
         showListings();
 
@@ -153,7 +172,7 @@ var map;
         init_data[i].marker.setMap(null);
         }
         else{
-        // add to the list 
+        // add to the list
         self.locations.push(new Loction(init_data[i]));
         }
         }
@@ -182,3 +201,7 @@ var map;
         ko_locations.push(new Loction(location));
         });
         }
+
+        mapError = () => {
+            alert("error load map please refresh the page to try again");
+        };
